@@ -1,3 +1,245 @@
-== Kotlin Multiplatform Beyond Mobile
+= Kotlin Multiplatform Beyond Mobile
 
-Background information will appear here soon.
+Material accompanying my talk at GDG DevFest in Hamburg, November 2023.
+
+NOTE: Something missing, wrong, you've got better ideas? Let's talk! Create an issue or a PR.
+
+== News
+
+* November 1, 2023: Kotlin 1.9.20 is released, accompanied by a new set of exhaustive documentation.
+* November 1, 2023: https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-stable[Kotlin Multiplatform Is Stable and Production-Ready | The Kotlin Blog]
+* November 6, 2023: Kotlin 1.9.20 + Compose Multiplatform 1.5.10-dev-wasm02: Compose Web/Wasm on Chrome now twice as fast as Web/Js. At least as seen by https://github.com/OliverO2/compose-counting-grid
+* November 7, 2023: https://blog.jetbrains.com/kotlin/2023/11/kotlin-multiplatform-tooling-in-fleet/[Welcome Fleet with Kotlin Multiplatform Tooling | The Kotlin Blog] – JetBrains announces the intention of making Fleet the new Kotlin multiplatform IDE with cross-language refactoring and debugging.
+
+== Short Recap
+
+=== Kotlin Superpowers
+
+* Concise _and_ typesafe
+* Null-safe
+* Coroutines
+* Multiplatform, natively integrated
+* Compose
+
+=== The "Kotlin Culture"
+
+* Expressing ideas in concise and intelligible ways.
+* Avoiding magic.
+
+=== Kotlin Multiplatform in 2023
+
+* Native on all targets.
+* Code sharing when and how it works best for you.
+
+=== Compose Multiplatform
+
+|===
+|Name |Rendering |Target | PP UI | Status
+
+|Compose for Desktop
+|Canvas via Skiko/Skia
+|JVM
+|Yes
+|Stable
+
+|Compose for iOS
+|Canvas via Skiko/Skia
+|Native
+|Yes
+|Alpha
+
+|Compose for Web
+|Canvas via Skiko/Skia
+|WebAssembly
+|Yes
+|Experimental
+
+|*"Compose for Web/JS"*
+|*Canvas via Skiko/Skia*
+|*JavaScript,* (Skia/Wasm)
+|*Yes*
+|*Unofficial*
+
+|Compose HTML
+|DOM
+|JavaScript
+|No (CSS)
+|Experimental
+
+|===
+
+==== How To Approach Compose-MP
+
+* Use "Compose for Web/JS" now, Compose for Web/Wasm sometime in 2024.
+* Check required functionality for your use cases.
+* Check if bundle sizes meet your requirements.
+
+=== WebAssembly (Wasm)
+
+* Still early, lacks library support, but moving fast.
+
+==== Kotlin and Browser Support for Integrated Garbage Collector
+
+* Kotlin support in 1.9.20
+* Chrome Stable: November 2023
+* Firefox Stable: November 2023
+* Safari: Unknown (there is WIP in WebKit, release in months?)
+
+==== Other Browser Developments
+
+* Wasm Multithreading on its way along the 5-phase standardization process.
+
+==== Servers
+
+* WebAssembly VM with microsecond startup time about to become the most attractive virtualization runtime.
+* Initial WASI (WebAssembly System Interface) support in Kotlin 1.9.20.
+
+=== How To Approach KMP
+
+* Just Do It.
+* At your pace. No all-in commitment.
+* Native where you want it.
+* KMP where you want it, when you want it.
+* Let examples inspire you / Try stuff / Don't blindly follow "recipes" / Check what works for you.
+* Don't worry about reliability: Experimental, Alpha, Beta are (mostly) about https://kotlinlang.org/docs/components-stability.html[API stability].
+* Use Multiplatform libraries where available (easier to use, allow expanding to other platforms later).
+* Get in touch with the community (kotlinlang Slack).
+
+== Additional Material
+
+Some background information on everything Kotlin Multiplatform. And everything I would have liked to talk about, but could not fit into that talk.
+
+NOTE: While I believe that stuff mentioned here is valuable, I do not necessarily endorse everything. So I ask you to just find out what works well in your context, given your background and preferences.
+
+=== Getting Started
+
+You'd love to know what works for you?
+
+* https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html[Get started with Kotlin Multiplatform | Kotlin Multiplatform Development Documentation]
+* https://kotlinlang.org/docs/whatsnew1920.html[What's new in Kotlin 1.9.20 | Kotlin Documentation]
+* https://www.youtube.com/watch?v=2PLYlDJPelQ[Introducing Kotlin Notebook - YouTube]
+
+Your management needs input?
+
+* https://www.jetbrains.com/kotlin-multiplatform/[Kotlin Multiplatform (Official Site)]
+* https://medium.com/@jacobras/popular-apps-using-kotlin-multiplatform-kmp-in-2023-and-what-you-can-learn-from-them-1f94d86489b7[Popular apps using Kotlin Multiplatform (KMP) in 2023 | Medium]
+
+Get in touch!
+
+* https://surveys.jetbrains.com/s3/kotlin-slack-sign-up[Kotlin Slack Sign-up] – Meet lots and lots of nice and helpful people. Get answers, insights, inspiration. Contribute!
+** https://slack-chats.kotlinlang.org/[kotlinlang Slack public archive]
+* https://kotlinlang.org/community/[Kotlin community overview]
+
+=== Target Platforms
+
+==== JVM
+
+* https://www.youtube.com/watch?v=zluKcazgkV4[Coroutines vs. Loom – Roman Elizarov, KotlinConf 2023]
+* https://www.baeldung.com/kotlin/suspend-functions-from-java[Calling Kotlin Suspending Functions from Java | Baeldung on Kotlin]
+
+==== JavaScript
+
+* https://dev.to/mpetuska/js-in-kotlinjs-c4g[JS in Kotlin/JS – Martynas Petuška]
+
+==== WebAssembly
+
+* https://developer.mozilla.org/en-US/docs/WebAssembly/Concepts[WebAssembly Concepts - WebAssembly | MDN]
+* https://v8.dev/blog/wasm-gc-porting[A new way to bring garbage collected programming languages efficiently to WebAssembly · V8]
+* https://web.dev/explore/webassembly[WebAssembly | web.dev]
+* https://github.com/Kotlin/kotlin-wasm-examples[Kotlin/kotlin-wasm-examples: Examples with Kotlin/Wasm]
+* https://twitter.com/bashorov/status/1712016286698357092[Latest updates from the WebAssembly Community Group Person Meeting (Munich)]
+* https://twitter.com/bashorov/status/1716891482487988630[State and Schedule for Wasm GC support in Kotlin/Wasm and Browsers]
+* https://blog.scottlogic.com/2023/10/18/the-state-of-webassembly-2023.html[The State of WebAssembly 2023]
+
+==== iOS
+
+* https://medium.com/@aoriani/list/writing-swiftfriendly-kotlin-multiplatform-apis-c51c2b317fce[List:
+Writing Swift-friendly Kotlin Multiplatform APIs | Curated by André
+Oriani | Medium]
+
+=== Evaluating Web UI Frameworks
+
+==== Multiplatform UI Frameworks
+
+* https://www.jetpackcompose.app/compare-declarative-frameworks/JetpackCompose-vs-React-vs-Flutter[JetpackCompose vs React vs Flutter - Compare Declarative UI Frameworks]
+** That site can also compare SwiftUI with any of the other frameworks.
+
+==== JavaScript UI Frameworks
+
+* https://infrequently.org/2023/02/the-market-for-lemons/[The Market for Lemons - Infrequently Noted]
+* https://joshcollinsworth.com/blog/antiquated-react[Things you forgot (or never knew) because of React - Josh Collinsworth blog]
+* https://dev.to/tigt/why-not-react-2f8l[Why not React? - DEV Community]
+
+==== UI Framework Considerations
+
+* https://timkadlec.com/2014/01/fast-enough/[Web Performance – How fast is fast enough? | TimKadlec.com]
+
+=== Architecture
+
+NOTE: Opinion: Many popular architectures are too complicated. And I mean way too complicated. Try to find the better ones!
+
+* https://github.com/sksamuel/samstack[sksamuel/samstack: Sample Ktor app using a functional stack]
+* https://github.com/tunjid/me[tunjid/me: A Jetpack Compose Kotlin Multiplatform WYSIWYG blog editor] – what apps in the future could look like
+
+=== Multiplatform Libraries
+
+==== UI
+
+* https://www.jetbrains.com/lp/compose-multiplatform/[Compose Multiplatform] – Declarative UI Framework
+* https://developer.android.com/jetpack/compose/documentation[Get started with Jetpack Compose | Android Developers] – basic Compose documentation, most of it also applies to Compose Multiplatform
+* https://slack-chats.kotlinlang.org/t/15659164/i-thought-i-d-summarise-my-experience-of-exploring-theming-o[Adapting Themes for Compose Desktop] – may not always be straightforward
+* https://dev.to/erdo/jetpack-compose-and-windowsize-classes-gb4[Jetpack Compose and WindowSize Classes – a guide for supporting multiple device sizes with Compose]
+* https://github.com/MohamedRejeb/Calf[Calf (Compose Adaptive Look & Feel)] – a library with Composables styled for different platforms (Dialog, Bottom Sheet, Progress Indicator, Switch, Date/Time picker, File picker, Web View).
+* https://github.com/OliverO2/compose-counting-grid[OliverO2/compose-counting-grid] – see how to use Compose for Web with WebAssembly or JavaScript (the unofficial "Compose for Web/JS")
+* https://www.youtube.com/playlist?list=PLWz5rJ2EKKc91i2QT8qfrfKgLNlJiG1z7[Modern Android Development (MAD) Skills - YouTube] – explaining a wide array of Compose features and techniques
+* https://voyager.adriel.cafe/[Voyager] – multiplatform navigation library
+* https://github.com/hfhbd/routing-compose[hfhbd/routing-compose: Routing feature for Compose Web and Desktop]
+* https://github.com/KevinnZou/compose-webview-multiplatform[KevinnZou/compose-webview-multiplatform: WebView for JetBrains Compose Multiplatform.]
+
+==== Connectivity
+
+* https://ktor.io/[Ktor] – Framework to easily build connected applications – web applications, HTTP services, mobile and browser applications.
+* https://kotlinlang.org/docs/serialization.html[Serialization (kotlinx.serialization)] – typesafe, reflectionless, secure serialization and deserialization (JSON, ProtoBuf and other formats)
+
+==== Persistence
+
+Maybe you don't need an SQL database at all and a simple key-value store will do. Otherwise:
+
+* https://github.com/JetBrains/Exposed[JetBrains/Exposed: Kotlin SQL Framework]
+** https://blog.jetbrains.com/kotlin/2023/08/exposed-moving-forward/[Exposed moving forward | The Kotlin Blog]
+* https://github.com/cashapp/sqldelight[cashapp/sqldelight: SQLDelight - Generates typesafe Kotlin APIs from SQL]
+
+==== Other
+
+* https://kotest.io/[Kotest] – a coroutine-ready multi-platform test framework for Kotlin with extensive assertions and integrated property testing
+* https://opentelemetry.io/[OpenTelemetry] – the Java library provides a https://github.com/open-telemetry/opentelemetry-java/tree/main/extensions/kotlin[Kotlin extension for coroutines]
+* https://github.com/adrielcafe/lyricist[adrielcafe/lyricist: 🌎 The missing I18N/L10N (internationalization/localization) multiplatform library for Jetpack Compose!]
+* https://github.com/Kotlin/kotlinx-atomicfu[Kotlin/kotlinx-atomicfu: The idiomatic way to use atomic operations in Kotlin] – multiplatform synchronization primitives (atomics, locks)
+
+=== Tooling
+
+* https://plugins.jetbrains.com/plugin/15057-ktlint-unofficial-[Ktlint (unofficial) - IntelliJ IDEs Plugin] – Life is too short to do manual code formatting? Use this configured to auto-format on save, along with an `.editorconfig` file adapted to your needs.
+* https://github.com/jeremymailen/kotlinter-gradle[jeremymailen/kotlinter-gradle: Painless, fast ktlint plugin for Gradle]
+* https://github.com/Kotlin/kotlinx-kover[kotlinx-kover] – Code coverage toolset
+* https://splitties.github.io/refreshVersions/[Gradle refreshVersions] – find updated dependencies automatically, use this in combination with a Gradle version catalog to simplify dependency management in multimodule projects
+* https://github.com/Kotlin/kotlinx-benchmark[Kotlin/kotlinx-benchmark: Kotlin multiplatform benchmarking toolkit]
+* https://github.com/mobanisto/pinpit-gradle-plugin[mobanisto/pinpit-gradle-plugin: Platform Independent Native Packaging and Installer Toolkit] – distribute JVM applications to Linux, Windows and macOS without the need to run the build on machines with the respective operating systems installed.
+
+=== Inspring Multiplatform Applications
+
+* https://github.com/TheChance101/beep-beep[TheChance101/beep-beep] – Just announced on November 4, 2023, they claim being "the largest full-stack open-source Kotlin project". I was unable to verify that claim and have only glimpsed over the project, but there is definitely quite a lot of real-world functionality in there, so on a rainy day you might just look around...
+* https://github.com/tunjid/me[tunjid/me: A Jetpack Compose Kotlin Multiplatform WYSIWYG blog editor] – what apps in the future could look like:
+** No pull to refresh in the app. The app is always up-to-date.
+** Navigation is persisted between app restarts and device reboots.
+** Scroll position is preserved between app restarts and device reboots.
+* https://github.com/JetpackDuba/Gitnuro[Gitnuro] – Git client based on Compose Multiplatform
+* https://github.com/joreilly[joreilly (John O'Reilly)] – Creator of a number of multiplatform demo applications, keeping those in sync with latest Kotlin and library releases.
+
+=== Curated Resources
+
+There is lots of stuff out there. You'll find so many opportunities to inspire you and learn from. Even if that means learning from less-than-ideal solutions.
+
+NOTE: My take: Many solutions out there are unnecessarily complicated (yes, that's possible even in Kotlin). So try to find the well-designed ones that are complete, yet simple!
+
+* https://github.com/terrakok/kmp-awesome[terrakok/kmp-awesome: An awesome list that curates the best Kotlin Multiplatform libraries, tools and more.]
+* https://kotlin.link/[Awesome Kotlin]
